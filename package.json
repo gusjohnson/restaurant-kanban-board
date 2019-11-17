@@ -9,8 +9,11 @@
   },
   "dependencies": {
     "core-js": "^3.3.2",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
     "vue": "^2.6.10",
-    "vue-google-autocomplete": "^1.1.0"
+    "vue-google-autocomplete": "^1.1.0",
+    "vuedraggable": "^2.23.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.0",

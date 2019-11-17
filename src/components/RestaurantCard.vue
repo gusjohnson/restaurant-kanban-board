@@ -21,7 +21,6 @@ export default {
 
 <style scoped>
 .card {
-  width: 15rem;
   height: 10rem;
   border: 1px solid gray;
   border-radius: 0.5rem;
