@@ -39,7 +39,7 @@ export default {
       if (place) {
         this.$emit('added', {
           name: place.name,
-          rating: place.rating,
+          googleRating: place.rating,
           address: place.formatted_address
         })
       }

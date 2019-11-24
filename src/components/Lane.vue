@@ -25,25 +25,28 @@ export default {
     name: {
       type: String,
       required: true
+    },
+    restaurants: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      restaurants: [],
-      addNewRestaurant: false,
+      addNewRestaurant: false
     }
   },
   methods: {
     addRestaurant(restaurant) {
-      this.restaurants.push({
+      this.$emit('added', {
         ...restaurant,
-        lane: this.name,
-        displayOrder: this.restaurants.length
+        userRating: null,
+        lane: this.name
       })
       this.addNewRestaurant = false
     },
     removeRestaurant(removedRestaurant) {
-      this.restaurants = this.restaurants.filter(restaurant => restaurant.name !== removedRestaurant.name)
+      this.$emit('removed', removedRestaurant)
     }
   }
 }
