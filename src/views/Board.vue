@@ -4,8 +4,9 @@
           :key="lane"
           :name="lane"
           :restaurants="restaurantsForLane(lane)"
-          @added="addRestaurant"
-          @removed="removeRestaurant" />
+          @new="newRestaurant"
+          @removed="removeRestaurant"
+          @added="updateRestaurant" />
   </div>
 </template>
 
@@ -37,14 +38,19 @@ export default {
     restaurantsForLane(lane) {
       return this.restaurants.filter(restaurant => restaurant.lane === lane)
     },
-    async addRestaurant(restaurant) {
-      console.log(restaurant)
+    async newRestaurant(restaurant) {
       await axios.post(base_url, restaurant)
       this.restaurants.push(restaurant)
     },
     async removeRestaurant(removedRestaurant) {
       await axios.delete(`${base_url}/${removedRestaurant._id}`)
       this.restaurants = this.restaurants.filter(restaurant => restaurant.name !== removedRestaurant.name)
+    },
+    async updateRestaurant(updatedRestaurantEvent) {
+      const updatedRestaurant = updatedRestaurantEvent.element
+      await axios.put(`${base_url}/${updatedRestaurant._id}`, updatedRestaurant)
+      const existingRestaurant = this.restaurants.find(restaurant => restaurant._id === updatedRestaurant._id)
+      existingRestaurant.lane = updatedRestaurant.lane
     }
   }
 }

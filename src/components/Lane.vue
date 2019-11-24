@@ -3,7 +3,7 @@
     <h1>{{ name }}</h1>
     <span class="add-link" v-if="addNewRestaurant === false" @click="addNewRestaurant = true">Add a restaurant</span>
     <new-restaurant v-if="addNewRestaurant" @added="addRestaurant" @cancel="addNewRestaurant = false" />
-    <draggable class="dropzone" :list="restaurants" group="restaurants">
+    <draggable class="dropzone" :list="restaurants" group="restaurants" @change="updateRestaurant">
       <restaurant-card v-for="restaurant in restaurants" :key="restaurant.name" :restaurant="restaurant" @removed="removeRestaurant" />
     </draggable>
   </div>
@@ -13,6 +13,9 @@
 import RestaurantCard from '@/components/RestaurantCard.vue'
 import NewRestaurant from '@/components/NewRestaurant.vue'
 import draggable from 'vuedraggable'
+import _has from 'lodash/has'
+
+/* eslint-disable no-console */
 
 export default {
   name: 'Lane',
@@ -38,7 +41,7 @@ export default {
   },
   methods: {
     addRestaurant(restaurant) {
-      this.$emit('added', {
+      this.$emit('new', {
         ...restaurant,
         userRating: null,
         lane: this.name
@@ -47,6 +50,14 @@ export default {
     },
     removeRestaurant(removedRestaurant) {
       this.$emit('removed', removedRestaurant)
+    },
+    updateRestaurant(event) {
+      if (_has(event, 'added')) {
+        event.added.element.lane = this.name
+        this.$emit('added', event.added)
+      } else if (_has(event, 'moved')) {
+        this.$emit('moved', event.moved)
+      }
     }
   }
 }
