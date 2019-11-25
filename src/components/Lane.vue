@@ -44,7 +44,8 @@ export default {
       this.$emit('new', {
         ...restaurant,
         userRating: null,
-        lane: this.name
+        lane: this.name,
+        displayOrder: this.restaurants.length
       })
       this.addNewRestaurant = false
     },
@@ -54,8 +55,10 @@ export default {
     updateRestaurant(event) {
       if (_has(event, 'added')) {
         event.added.element.lane = this.name
+        event.added.element.displayOrder = event.added.newIndex
         this.$emit('added', event.added)
       } else if (_has(event, 'moved')) {
+        event.moved.element.displayOrder = event.moved.newIndex
         this.$emit('moved', event.moved)
       }
     }

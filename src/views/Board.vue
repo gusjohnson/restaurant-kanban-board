@@ -39,8 +39,8 @@ export default {
       return this.restaurants.filter(restaurant => restaurant.lane === lane)
     },
     async newRestaurant(restaurant) {
-      await axios.post(base_url, restaurant)
-      this.restaurants.push(restaurant)
+      const newRestaurant = await axios.post(base_url, restaurant)
+      this.restaurants.push(newRestaurant.data)
     },
     async removeRestaurant(removedRestaurant) {
       await axios.delete(`${base_url}/${removedRestaurant._id}`)
