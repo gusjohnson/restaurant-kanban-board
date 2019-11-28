@@ -6,7 +6,8 @@
           :restaurants="restaurantsForLane(lane)"
           @new="newRestaurant"
           @removed="removeRestaurant"
-          @added="updateRestaurant" />
+          @added="updateRestaurant"
+          @moved="moveRestaurant" />
   </div>
 </template>
 
@@ -36,7 +37,9 @@ export default {
   },
   methods: {
     restaurantsForLane(lane) {
-      return this.restaurants.filter(restaurant => restaurant.lane === lane)
+      return this.restaurants.filter(restaurant => restaurant.lane === lane).sort((a, b) => {
+        return a.displayOrder - b.displayOrder
+      })
     },
     async newRestaurant(restaurant) {
       const newRestaurant = await axios.post(base_url, restaurant)
@@ -48,9 +51,38 @@ export default {
     },
     async updateRestaurant(updatedRestaurantEvent) {
       const updatedRestaurant = updatedRestaurantEvent.element
-      await axios.put(`${base_url}/${updatedRestaurant._id}`, updatedRestaurant)
+      const newIndex = updatedRestaurantEvent.newIndex
+
       const existingRestaurant = this.restaurants.find(restaurant => restaurant._id === updatedRestaurant._id)
       existingRestaurant.lane = updatedRestaurant.lane
+
+      const restaurantsInLane = this.restaurantsForLane(updatedRestaurant.lane)
+      restaurantsInLane.splice(newIndex, 0, updatedRestaurant)
+      
+      let restaurantUpdates = []
+      restaurantsInLane.forEach(restaurant => {
+        restaurant.displayOrder = restaurantsInLane.indexOf(restaurant)
+        restaurantUpdates.push(axios.put(`${base_url}/${restaurant._id}`, restaurant))
+      })
+
+      await Promise.all(restaurantUpdates)
+    },
+    async moveRestaurant(movedRestaurantEvent) {
+      const movedRestaurant = movedRestaurantEvent.element
+      const newIndex = movedRestaurantEvent.newIndex
+      const oldIndex = movedRestaurantEvent.oldIndex
+      
+      const restaurantsInLane = this.restaurantsForLane(movedRestaurant.lane)
+      restaurantsInLane.splice(oldIndex, 1)
+      restaurantsInLane.splice(newIndex, 0, movedRestaurant)
+      
+      let restaurantUpdates = []
+      restaurantsInLane.forEach(restaurant => {
+        restaurant.displayOrder = restaurantsInLane.indexOf(restaurant)
+        restaurantUpdates.push(axios.put(`${base_url}/${restaurant._id}`, restaurant))
+      })
+
+      await Promise.all(restaurantUpdates)
     }
   }
 }
