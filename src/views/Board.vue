@@ -96,6 +96,6 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: stretch;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 60px);
 }
 </style>

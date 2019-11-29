@@ -75,14 +75,14 @@ export default {
 .lane {
   width: 20rem;
   height: 100%;
-  border: 1px solid gray;
-  border-radius: 0.5rem;
+  border-right: 1px solid rgb(189, 189, 189);
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  background-color: #f7f7f7;
 
   .dropzone {
     height: 100%;
+    overflow: scroll;
   }
 }
 

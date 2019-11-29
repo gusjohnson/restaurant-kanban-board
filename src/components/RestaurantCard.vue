@@ -23,12 +23,13 @@ export default {
 .card {
   height: 10rem;
   border: 1px solid gray;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   margin: 1rem;
+  box-shadow: 1px 1px 5px gray;
 }
 
 .remove-restaurant {
