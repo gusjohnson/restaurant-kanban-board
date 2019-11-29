@@ -5,8 +5,9 @@
           :name="lane"
           :restaurants="restaurantsForLane(lane)"
           @new="newRestaurant"
-          @removed="removeRestaurant"
+          @deleted="deleteRestaurant"
           @added="updateRestaurant"
+          @removed="handleRemovedRestaurant"
           @moved="moveRestaurant" />
   </div>
 </template>
@@ -45,27 +46,21 @@ export default {
       const newRestaurant = await axios.post(base_url, restaurant)
       this.restaurants.push(newRestaurant.data)
     },
-    async removeRestaurant(removedRestaurant) {
-      await axios.delete(`${base_url}/${removedRestaurant._id}`)
-      this.restaurants = this.restaurants.filter(restaurant => restaurant.name !== removedRestaurant.name)
+    async deleteRestaurant(deletedRestaurant) {
+      await axios.delete(`${base_url}/${deletedRestaurant._id}`)
+      this.restaurants = this.restaurants.filter(restaurant => restaurant.name !== deletedRestaurant.name)
     },
     async updateRestaurant(updatedRestaurantEvent) {
-      const updatedRestaurant = updatedRestaurantEvent.element
-      const newIndex = updatedRestaurantEvent.newIndex
+      const updatedRestaurant = updatedRestaurantEvent.event.element
+      const newIndex = updatedRestaurantEvent.event.newIndex
 
       const existingRestaurant = this.restaurants.find(restaurant => restaurant._id === updatedRestaurant._id)
-      existingRestaurant.lane = updatedRestaurant.lane
-
-      const restaurantsInLane = this.restaurantsForLane(updatedRestaurant.lane)
-      restaurantsInLane.splice(newIndex, 0, updatedRestaurant)
       
-      let restaurantUpdates = []
-      restaurantsInLane.forEach(restaurant => {
-        restaurant.displayOrder = restaurantsInLane.indexOf(restaurant)
-        restaurantUpdates.push(axios.put(`${base_url}/${restaurant._id}`, restaurant))
-      })
-
-      await Promise.all(restaurantUpdates)
+      const restaurantsInLane = this.restaurantsForLane(updatedRestaurantEvent.lane)
+      restaurantsInLane.splice(newIndex, 0, existingRestaurant)
+      existingRestaurant.lane = updatedRestaurantEvent.lane
+      
+      await this.updateDisplayOrder(restaurantsInLane)
     },
     async moveRestaurant(movedRestaurantEvent) {
       const movedRestaurant = movedRestaurantEvent.element
@@ -76,6 +71,13 @@ export default {
       restaurantsInLane.splice(oldIndex, 1)
       restaurantsInLane.splice(newIndex, 0, movedRestaurant)
       
+      await this.updateDisplayOrder(restaurantsInLane)
+    },
+    async handleRemovedRestaurant(removedRestaurantEvent) {
+      const restaurantsInLane = this.restaurantsForLane(removedRestaurantEvent.lane)
+      await this.updateDisplayOrder(restaurantsInLane)
+    },
+    async updateDisplayOrder(restaurantsInLane) {
       let restaurantUpdates = []
       restaurantsInLane.forEach(restaurant => {
         restaurant.displayOrder = restaurantsInLane.indexOf(restaurant)

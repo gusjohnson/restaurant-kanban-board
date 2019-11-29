@@ -4,7 +4,7 @@
     <span class="add-link" v-if="addNewRestaurant === false" @click="addNewRestaurant = true">Add a restaurant</span>
     <new-restaurant v-if="addNewRestaurant" @added="addRestaurant" @cancel="addNewRestaurant = false" />
     <draggable class="dropzone" :list="restaurants" group="restaurants" @change="updateRestaurant">
-      <restaurant-card v-for="restaurant in restaurants" :key="restaurant.name" :restaurant="restaurant" @removed="removeRestaurant" />
+      <restaurant-card v-for="restaurant in restaurants" :key="restaurant.name" :restaurant="restaurant" @deleted="deleteRestaurant" />
     </draggable>
   </div>
 </template>
@@ -49,15 +49,22 @@ export default {
       })
       this.addNewRestaurant = false
     },
-    removeRestaurant(removedRestaurant) {
-      this.$emit('removed', removedRestaurant)
+    deleteRestaurant(deletedRestaurant) {
+      this.$emit('deleted', deletedRestaurant)
     },
     updateRestaurant(event) {
       if (_has(event, 'added')) {
-        event.added.element.lane = this.name
-        this.$emit('added', event.added)
+        this.$emit('added', {
+            event: event.added,
+            lane: this.name
+          })
       } else if (_has(event, 'moved')) {
         this.$emit('moved', event.moved)
+      } else if (_has(event, 'removed')) {
+        this.$emit('removed', {
+            event: event.removed,
+            lane: this.name
+          })
       }
     }
   }

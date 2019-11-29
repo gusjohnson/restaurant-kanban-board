@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <span class="remove-restaurant" @click="$emit('removed', restaurant)">Remove</span>
+    <span class="remove-restaurant" @click="$emit('deleted', restaurant)">Remove</span>
     <div>{{ restaurant.name }}</div>
     <div>{{ restaurant.rating }}</div>
     <div>{{ restaurant.address }}</div>
