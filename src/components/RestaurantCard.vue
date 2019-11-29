@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <span class="remove-restaurant" @click="$emit('removed', restaurant)">Remove</span>
+    <span class="remove-restaurant" @click="$emit('deleted', restaurant)">Remove</span>
     <div>{{ restaurant.name }}</div>
     <div>{{ restaurant.rating }}</div>
     <div>{{ restaurant.address }}</div>
@@ -21,7 +21,6 @@ export default {
 
 <style scoped>
 .card {
-  width: 15rem;
   height: 10rem;
   border: 1px solid gray;
   border-radius: 0.5rem;

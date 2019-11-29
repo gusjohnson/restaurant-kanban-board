@@ -39,7 +39,7 @@ export default {
       if (place) {
         this.$emit('added', {
           name: place.name,
-          rating: place.rating,
+          googleRating: place.rating,
           address: place.formatted_address
         })
       }
@@ -50,7 +50,6 @@ export default {
 
 <style scoped>
 .card {
-  width: 15rem;
   height: 10rem;
   border: 1px solid gray;
   border-radius: 0.5rem;
