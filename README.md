@@ -24,4 +24,7 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### To-do
-- [ ] Allow users to submit their own ratings
+- [ ] Allow users to submit and change their own ratings
+- [ ] Enable user logins
+- [ ] Enhance google places searching
+- [ ] Build random restaurant selector
