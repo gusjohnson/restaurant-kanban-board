@@ -8,7 +8,8 @@
           @deleted="deleteRestaurant"
           @added="updateRestaurant"
           @removed="handleRemovedRestaurant"
-          @moved="moveRestaurant" />
+          @moved="moveRestaurant"
+          @rated="rateRestaurant" />
   </div>
 </template>
 
@@ -85,6 +86,12 @@ export default {
       })
 
       await Promise.all(restaurantUpdates)
+    },
+    async rateRestaurant(ratedRestaurantEvent) {
+      const ratedRestaurant = ratedRestaurantEvent.restaurant
+      const existingRestaurant = this.restaurants.find(restaurant => restaurant._id === ratedRestaurant._id)
+      existingRestaurant.userRating = ratedRestaurantEvent.userRating
+      await axios.put(`${base_url}/${existingRestaurant._id}`, existingRestaurant)
     }
   }
 }
