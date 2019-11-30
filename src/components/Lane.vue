@@ -4,7 +4,7 @@
     <span class="add-link" v-if="addNewRestaurant === false" @click="addNewRestaurant = true">Add a restaurant</span>
     <new-restaurant v-if="addNewRestaurant" @added="addRestaurant" @cancel="addNewRestaurant = false" />
     <draggable class="dropzone" :list="restaurants" group="restaurants" @change="updateRestaurant">
-      <restaurant-card v-for="restaurant in restaurants" :key="restaurant.name" :restaurant="restaurant" @deleted="deleteRestaurant" />
+      <restaurant-card v-for="restaurant in restaurants" :key="restaurant.name" :restaurant="restaurant" @deleted="deleteRestaurant" @rated="rateRestaurant" />
     </draggable>
   </div>
 </template>
@@ -66,6 +66,9 @@ export default {
             lane: this.name
           })
       }
+    },
+    rateRestaurant(rateEvent) {
+      this.$emit('rated', rateEvent)
     }
   }
 }
@@ -75,14 +78,14 @@ export default {
 .lane {
   width: 20rem;
   height: 100%;
-  border: 1px solid gray;
-  border-radius: 0.5rem;
+  border-right: 1px solid rgb(189, 189, 189);
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  background-color: #f7f7f7;
 
   .dropzone {
     height: 100%;
+    overflow: scroll;
   }
 }
 

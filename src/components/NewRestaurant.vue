@@ -50,14 +50,16 @@ export default {
 
 <style scoped>
 .card {
-  height: 10rem;
+  height: 9rem;
   border: 1px solid gray;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   margin: 1rem;
+  box-shadow: 2px 2px 4px gray;
+  font-size: 14px;
 }
 
 .search-box {
