@@ -76,11 +76,12 @@ export default {
 
 <style lang="scss" scoped>
 .lane {
-  width: 20rem;
+  min-width: 20rem;
   height: 100%;
   border-right: 1px solid rgb(189, 189, 189);
   display: flex;
   flex-direction: column;
+  flex: 0 0 25%;
   background-color: #f7f7f7;
 
   .dropzone {

@@ -101,8 +101,9 @@ export default {
 .board {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  flex-wrap: nowrap;
   align-items: stretch;
   height: calc(100vh - 60px);
+  overflow-x: auto;
 }
 </style>
