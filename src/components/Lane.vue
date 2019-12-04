@@ -3,7 +3,10 @@
     <h1>{{ name }}</h1>
     <span class="add-link" v-if="addNewRestaurant === false" @click="addNewRestaurant = true">Add a restaurant</span>
     <new-restaurant v-if="addNewRestaurant" @added="addRestaurant" @cancel="addNewRestaurant = false" />
-    <draggable class="dropzone" :list="restaurants" group="restaurants" @change="updateRestaurant">
+    <draggable class="dropzone"
+               :list="restaurants"
+               group="restaurants"
+               @change="updateRestaurant">
       <restaurant-card v-for="restaurant in restaurants" :key="restaurant.name" :restaurant="restaurant" @deleted="deleteRestaurant" @rated="rateRestaurant" />
     </draggable>
   </div>
