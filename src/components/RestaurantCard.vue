@@ -58,6 +58,7 @@ export default {
   box-shadow: 2px 2px 4px gray;
   font-size: 14px;
   text-align: left;
+  cursor: move;
 }
 
 .card > div {
@@ -85,6 +86,7 @@ export default {
 .user-rating-button {
   color: #5cb85c;
   padding-left: .25rem;
+  cursor: pointer;
 }
 
 .icon {

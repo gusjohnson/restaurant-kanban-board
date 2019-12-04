@@ -3,7 +3,10 @@
     <h1>{{ name }}</h1>
     <span class="add-link" v-if="addNewRestaurant === false" @click="addNewRestaurant = true">Add a restaurant</span>
     <new-restaurant v-if="addNewRestaurant" @added="addRestaurant" @cancel="addNewRestaurant = false" />
-    <draggable class="dropzone" :list="restaurants" group="restaurants" @change="updateRestaurant">
+    <draggable class="dropzone"
+               :list="restaurants"
+               group="restaurants"
+               @change="updateRestaurant">
       <restaurant-card v-for="restaurant in restaurants" :key="restaurant.name" :restaurant="restaurant" @deleted="deleteRestaurant" @rated="rateRestaurant" />
     </draggable>
   </div>
@@ -76,11 +79,12 @@ export default {
 
 <style lang="scss" scoped>
 .lane {
-  width: 20rem;
+  min-width: 20rem;
   height: 100%;
   border-right: 1px solid rgb(189, 189, 189);
   display: flex;
   flex-direction: column;
+  flex: 0 0 25%;
   background-color: #f7f7f7;
 
   .dropzone {
