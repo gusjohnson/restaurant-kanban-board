@@ -84,12 +84,12 @@ export default {
   border-right: 1px solid rgb(189, 189, 189);
   display: flex;
   flex-direction: column;
-  flex: 0 0 25%;
+  flex: 0 1 25%;
   background-color: #f7f7f7;
 
   .dropzone {
     height: 100%;
-    overflow: scroll;
+    overflow: auto;
   }
 }
 
