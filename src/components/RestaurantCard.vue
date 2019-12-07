@@ -51,7 +51,6 @@ export default {
 
 <style scoped>
 .card {
-  height: 9rem;
   border: 1px solid gray;
   border-radius: 0.25rem;
   margin: 1rem;
@@ -59,11 +58,12 @@ export default {
   font-size: 14px;
   text-align: left;
   cursor: move;
+  padding: .25rem;
 }
 
 .card > div {
   text-align: left;
-  padding: .5rem .5rem 0 .5rem;
+  padding: .25rem;
 }
 
 .name-and-rating {
