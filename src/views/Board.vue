@@ -18,8 +18,8 @@ import Lane from '@/components/Lane.vue'
 import { lanes } from '@/constants/lanes.js'
 import axios from 'axios'
 
-const base_url = 'https://jgj-restaurants-api.herokuapp.com/restaurants'
-// const base_url = 'http://localhost:8000/restaurants'
+// const base_url = 'https://jgj-restaurants-api.herokuapp.com/restaurants'
+const base_url = 'http://localhost:8100/restaurants'
 /* eslint-disable no-console */
 
 export default {
