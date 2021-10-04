@@ -1,6 +1,6 @@
 <template>
   <div class="lane">
-    <h1>{{ name }}</h1>
+    <h1>{{ label }}</h1>
     <span class="add-link" v-if="addNewRestaurant === false" @click="addNewRestaurant = true">Add a restaurant</span>
     <new-restaurant v-if="addNewRestaurant" @added="addRestaurant" @cancel="addNewRestaurant = false" />
     <draggable class="dropzone"
@@ -29,6 +29,10 @@ export default {
   },
   props: {
     name: {
+      type: String,
+      required: true
+    },
+    label: {
       type: String,
       required: true
     },
@@ -85,7 +89,7 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 0 1 25%;
-  background-color: #f7f7f7;
+  background-color: #e9e9e9;
 
   .dropzone {
     height: 100%;

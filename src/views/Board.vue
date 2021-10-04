@@ -1,9 +1,10 @@
 <template>
   <div class="board">
     <lane v-for="lane in lanes" 
-          :key="lane"
-          :name="lane"
-          :restaurants="restaurantsForLane(lane)"
+          :key="lane.name"
+          :name="lane.name"
+          :label="lane.label"
+          :restaurants="restaurantsForLane(lane.name)"
           @new="newRestaurant"
           @deleted="deleteRestaurant"
           @added="updateRestaurant"
