@@ -1,8 +1,6 @@
 <template>
   <div class="nav-bar">
-    <h2 class="link">Restaurant Kanban Board</h2>
-    <span class="link">Home</span>
-    <span class="link">Random</span>
+    <h2 class="link">Restaurant Prioritizer</h2>
   </div>
 </template>
 
@@ -16,7 +14,7 @@ export default {
 .nav-bar {
   width: 100%;
   height: 60px;
-  background-color: #292b2c;
+  background-color: #1c526b;
   display: flex;
   align-items: center;
 }
