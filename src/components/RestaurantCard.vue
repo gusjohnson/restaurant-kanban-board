@@ -59,6 +59,7 @@ export default {
   text-align: left;
   cursor: move;
   padding: .25rem;
+  background-color: #e9e9e9;
 }
 
 .card > div {

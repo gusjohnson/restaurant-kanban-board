@@ -89,7 +89,7 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 0 1 25%;
-  background-color: #e9e9e9;
+  background-color: #e0e0e0;
 
   .dropzone {
     height: 100%;
