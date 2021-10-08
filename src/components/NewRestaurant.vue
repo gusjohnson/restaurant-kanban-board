@@ -60,6 +60,7 @@ export default {
   margin: 1rem;
   box-shadow: 2px 2px 4px gray;
   font-size: 14px;
+  background-color: #e9e9e9;
 }
 
 .search-box {
